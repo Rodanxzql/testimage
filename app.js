@@ -4,7 +4,7 @@ const fileUpload = require('express-fileupload');
 const mysql = require('mysql');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 // default option
 app.use(fileUpload());
@@ -37,7 +37,7 @@ app.get('', (req, res) => {
     if (err) throw err; // not connected
     console.log('Connected!');
 
-    connection.query('SELECT * FROM user WHERE id = "1"', (err, rows) => {
+    connection.query('SELECT * FROM user ', (err, rows) => {
       // Once done, release connection
       connection.release();
       if (!err) {
@@ -71,7 +71,7 @@ app.post('', (req, res) => {
       if (err) throw err; // not connected
       console.log('Connected!');
 
-      connection.query('UPDATE user SET profile_image = ? WHERE id ="1"', [sampleFile.name], (err, rows) => {
+      connection.query(`INSERT INTO user (name, profile_image) VALUES ('${req.body.name}','${sampleFile.name}')`, (err, rows) => {
         // Once done, release connection
         connection.release();
 
@@ -85,6 +85,22 @@ app.post('', (req, res) => {
     });
 
     // res.send('File uploaded!');
+  });
+});
+
+app.get('/item',(req, res, )=>{
+  pool.getConnection((err, connection) => {
+    if (err) throw err; // not connected
+    console.log('Connected!');
+
+    connection.query('SELECT * FROM user ', (err, rows) => {
+      // Once done, release connection
+      connection.release();
+      if (!err) {
+        res.render('item', { rows });
+      }
+    });
+
   });
 });
 
