@@ -1,0 +1,13 @@
+{{#each rows}}
+<div class="card">
+  
+
+    {{#if this.profile_image}}
+      <img class="card__image" src="{{this.profile_image}}" loading="lazy" alt="User Profile">
+    {{else}}
+      <img class="card__image" src="/img/default.jpg" loading="lazy" alt="User Profile">
+    {{/if}}
+    
+    <h1 class="card__title">{{this.name}}</h1>
+</div>
+{{/each}}
